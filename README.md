@@ -40,7 +40,7 @@ VPN Server Pritunl installed on bastion host and configured at https://vpn.newbu
 # Lesson 6
 
 ```
-testapp_IP = 35.246.206.213
+testapp_IP = 35.198.173.140
 testapp_port = 9292
 ```
 
