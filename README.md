@@ -36,3 +36,30 @@ and connect to someinternalhost by:
 
 VPN Server Pritunl installed on bastion host and configured at https://vpn.newbusinesslogic.com
 "Let's Enctypt" SSL certificate was configured on the domain.
+
+# Lesson 6
+
+```
+testapp_IP = 35.246.206.213
+testapp_port = 9292
+```
+
+Several script were created:
+
+`install_ruby.sh` - to install ruby environment
+`install_mongodb.sh` - to install mongodb
+`deploy.sh` - to deploy ruby application "puma"
+`startup_script.sh` - to install ruby, mongodb and run application "puma" during instance creation
+
+gcloud command to create instance with launched application:
+
+```
+gcloud compute instances create reddit-app\
+  --boot-disk-size=10GB \
+  --image-family ubuntu-1604-lts \
+  --image-project=ubuntu-os-cloud \
+  --machine-type=g1-small \
+  --tags puma-server \
+  --restart-on-failure \
+  --metadata-from-file startup-script=startup_script.sh
+```
