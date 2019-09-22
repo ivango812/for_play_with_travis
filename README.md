@@ -47,8 +47,11 @@ testapp_port = 9292
 Several script were created:
 
 `install_ruby.sh` - to install ruby environment
+
 `install_mongodb.sh` - to install mongodb
+
 `deploy.sh` - to deploy ruby application "puma"
+
 `startup_script.sh` - to install ruby, mongodb and run application "puma" during instance creation
 
 gcloud command to create instance with launched application:
