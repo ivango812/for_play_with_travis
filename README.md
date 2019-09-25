@@ -73,13 +73,13 @@ Studying Packer https://www.packer.io
 
 Two images was created:
 
-- one "base" image by `packer/ubuntu16.json` file
-- second one "full" image with ruby, mongo, puma by `packer/immutable.json` file based on the "base" image
+- one "base" image by [`packer/ubuntu16.json`](https://github.com/Otus-DevOps-2019-08/ivango812_infra/blob/packer-base/packer/ubuntu16.json) file
+- second one "full" image with ruby, mongo, puma by [`packer/immutable.json`](https://github.com/Otus-DevOps-2019-08/ivango812_infra/blob/packer-base/packer/immutable.json) file based on the "base" image
 
-Script for GCE-instance creation based on "full" image placed here: `config-scripts/create-reddit-vm.sh`
+Script for GCE-instance creation based on "full" image placed here: [`config-scripts/create-reddit-vm.sh`](https://github.com/Otus-DevOps-2019-08/ivango812_infra/blob/packer-base/config-scripts/create-reddit-vm.sh)
 
-Instance on "base" image: http://34.76.44.118:9292
-Instance on "full" image: http://34.77.196.237:9292
+- Instance on "base" image: http://34.76.44.118:9292
+- Instance on "full" image: http://34.77.196.237:9292
 
 !Notes:
 
