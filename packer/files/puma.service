@@ -1,0 +1,18 @@
+[Unit]
+Description=Puma (Ruby HTTP server)
+After=network.target
+After=mongod.service
+
+[Service]
+Type=simple
+
+User=appuser
+Group=appuser
+WorkingDirectory=/home/appuser/reddit
+
+ExecStart=/usr/local/bin/puma
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
