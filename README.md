@@ -187,3 +187,37 @@ sleep 30 # added trying to figure out the issue
 apt install -y ruby-full ruby-bundler build-essential
 ```
 
+# Lesson 8
+
+Studying Terraform http://terraform.io/
+
+Terraform files for instance "reddit-app" launch were created:
+```
+main.tf
+variables.tf
+terraform.tfvars
+output.tf
+```
+
+Also was created `.gitignore`:
+
+```
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+```
+
+I tried to add second user `appuser2` with existing ssh-key, and faced with log in problem: 
+`Permission denied (publickey).`
+
+Cleaning ~/.ssh/know_hosts helps.
+
+Load balancer was added to [`lb.tf`]() file for instance "reddit-app".
+
+Then second instance "reddit-app2" was added to the instances group in load balancer.
+It was inconvenient cause of duplicating a lot of code.
+
+So, the best way - to use `count` argument in the `resource` body.
+It was implemented in the final version of [`lb.tf`]()
