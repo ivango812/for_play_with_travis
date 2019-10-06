@@ -1,7 +1,7 @@
 terraform {
-  required_version = "0.12.8"
+  required_version = "~> 0.12"
   backend "gcs" {
-    bucket  = "storage-gis-tfstate"
-    prefix  = "terraform/state-prod"
+    bucket = "storage-gis-tfstate"
+    prefix = "terraform/state-prod"
   }
 }

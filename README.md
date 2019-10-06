@@ -221,3 +221,26 @@ It was inconvenient cause of duplicating a lot of code.
 
 So, the best way - to use `count` argument in the `resource` body.
 It was implemented in the final version of [`lb.tf`]()
+
+# Lesson 9
+
+Learning:
+загрузка существущих объектов из облака - import
+
+Resource dependency:
+- explicit dependence (depends_on = "<resource link>")
+- implicit dependency (if resource has link to other resource or its attribute) In this case terraform will wait until the required resource is created
+
+I splitted `main.tf` with the one project instance onto two instances in two files `app.tf` and `db.tf` 
+
+Then I put the general functionality into separate modules: `app`, `db` and `vpc`
+
+At the same time I parameterized the modules so that they can be reused by setting different input variables.
+
+
+подключение bucket для tfstate, перевод tf на bucket
+работа с провиженерами - file, remote, local (when=destroy)
+конфигурирование mongodb
+проброс ip mongo в инстанс с app - DATABASE_URL
+создание 2-х окружений stage и prod
+удаление ssh-ключа из known_hosts

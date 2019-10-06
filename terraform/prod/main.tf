@@ -5,26 +5,26 @@ provider "google" {
 }
 
 module "app" {
-  source          = "../modules/app"
-  public_key_path = var.public_key_path
+  source           = "../modules/app"
+  public_key_path  = var.public_key_path
   private_key_path = var.private_key_path
-  zone            = var.zone
-  app_disk_image  = var.app_disk_image
-  env_name        = var.env_name
-  database_url    = "${module.db.mongo_ip}:${module.db.mongo_port}"
+  zone             = var.zone
+  app_disk_image   = var.app_disk_image
+  env_name         = var.env_name
+  database_url     = "${module.db.mongo_ip}:${module.db.mongo_port}"
 }
 
 module "db" {
-  source          = "../modules/db"
-  public_key_path = var.public_key_path
+  source           = "../modules/db"
+  public_key_path  = var.public_key_path
   private_key_path = var.private_key_path
-  zone            = var.zone
-  db_disk_image   = var.db_disk_image
-  env_name        = var.env_name 
+  zone             = var.zone
+  db_disk_image    = var.db_disk_image
+  env_name         = var.env_name
 }
 
 module "vpc" {
   source        = "../modules/vpc"
   source_ranges = ["95.161.223.68/32"]
-  env_name      = var.env_name 
+  env_name      = var.env_name
 }

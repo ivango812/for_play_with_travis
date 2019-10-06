@@ -36,7 +36,7 @@ resource "google_compute_instance" "app" {
   }
   provisioner "local-exec" {
     when = "destroy"
-    command= "ssh-keygen -R ${self.network_interface.0.access_config.0.nat_ip}"
+    command= "ssh-keygen -R ${self.network_interface[0].access_config[0].nat_ip}"
   }
 }
 
