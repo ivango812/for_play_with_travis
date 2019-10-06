@@ -233,12 +233,12 @@ terraform import
 Before you run it - create empty resources in `*.tf` file
 
 Resource dependency:
-- explicit dependency (depends_on = "<resource link>")
+- explicit dependency (depends_on = "*resource link*")
 - implicit dependency (if resource has link to other resource or its attribute) In this case terraform will wait until the required resource is created
 
 I splitted `main.tf` with the single project instance onto two instances in two files `app.tf` and `db.tf` 
 
-*Modules*
+**Modules**
 
 After that I put the general functionality into separate modules: `app`, `db` and `vpc`
 
@@ -258,7 +258,7 @@ I used three types of provisioners:
 `remote-exec` (inline, script) - see it bellow
 `local-exec` (by trigger `when = "destroy"`)
 
-*Mongo configuring*
+**Mongo configuring**
 
 As we put mongodb server at separate instance we need to forward mongo ip address and port to the instance with the app. It was implemented by using module 'db' output variables as input for module 'app'
 
