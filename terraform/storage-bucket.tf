@@ -9,8 +9,7 @@ module "storage-bucket" {
   version = "0.3.0"
   location = var.region
 
-  # Имя поменяйте на другое
-  name = "storage-tfstate"
+  name = "storage-gis-tfstate"
 }
 
 output storage-bucket_url {
