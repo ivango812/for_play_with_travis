@@ -260,7 +260,7 @@ I used three types of provisioners:
 
 **Mongo configuring**
 
-As we put mongodb server at separate instance we need to forward mongo ip address and port to the instance with the app. It was implemented by using module 'db' output variables as input for module 'app'
+As we put mongodb server as separate instance we need to forward mongo ip address and port to the instance with the app. It was implemented by using module 'db' output variables as input for module 'app'
 
 Ruby application is waiting an `DATABASE_URL`, so I collected `mongo_ip` and `mongo_port` in one string `DATABASE_URL`:
 ```
