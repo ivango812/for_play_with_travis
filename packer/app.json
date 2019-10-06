@@ -1,0 +1,32 @@
+{
+    "variables": {
+        "project_id": "",
+        "machine_type": "f1-micro"
+    },
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `project_id`}}",
+            "image_name": "reddit-app-base-{{timestamp}}",
+            "image_family": "reddit-app-base",
+            "source_image_family": "ubuntu-1604-lts",
+            "zone": "europe-west1-b",
+            "ssh_username": "appuser",
+            "machine_type": "{{ user `machine_type`}}",
+            "image_description": "Ruby preinstalled image",
+            "disk_size": 10,
+            "disk_type": "pd-standard",
+            "network": "default",
+            "tags": ["ruby-server"]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "scripts": [
+              "scripts/install_ruby.sh"
+            ],
+            "execute_command": "sudo {{.Path}}"
+        }
+    ]
+}
