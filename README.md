@@ -221,3 +221,66 @@ It was inconvenient cause of duplicating a lot of code.
 
 So, the best way - to use `count` argument in the `resource` body.
 It was implemented in the final version of [`lb.tf`]()
+
+# Lesson 9
+
+Learning modules, provisioners and other small features...
+
+If we already have some infrastructure or some resources in our cloud we should load it  into terraform state file by using `import` command
+```
+terraform import
+```
+Before you run it - create empty resources in `*.tf` file
+
+Resource dependency:
+- explicit dependency (depends_on = "*resource link*")
+- implicit dependency (if resource has link to other resource or its attribute) In this case terraform will wait until the required resource is created
+
+I splitted `main.tf` with the single project instance onto two instances in two files `app.tf` and `db.tf` 
+
+**Modules**
+
+After that I put the general functionality into separate modules: `app`, `db` and `vpc`
+
+At the same time I parameterized the modules so that they can be reused by setting different input variables.
+
+A GCP bucket was created for `.tfstate` storing and reconfigured my project for storing state into this bucket.
+`storage-bucket.tf` for creating bucket
+`prod/backend.tf`, `stage/backend.tf` - for using this bucket
+
+
+Added provisioners for configuring and launching our applications:
+- `puma` server at `app` instance 
+- and `mongodb` at `db` instance
+
+I used three types of provisioners:
+`file` - for copying `puma.service` and `mongod.conf` files
+`remote-exec` (inline, script) - see it bellow
+`local-exec` (by trigger `when = "destroy"`)
+
+**Mongo configuring**
+
+As we put mongodb server as separate instance we need to forward mongo ip address and port to the instance with the app. It was implemented by using module 'db' output variables as input for module 'app'
+
+Ruby application is waiting an `DATABASE_URL`, so I collected `mongo_ip` and `mongo_port` in one string `DATABASE_URL`:
+```
+  database_url     = "${module.db.mongo_ip}:${module.db.mongo_port}"
+```
+
+then I created `mongod.conf` to force mongo listen external ip address.
+See: 
+
+As our modules were parameterized now I can create two environment `stage` and `prod` using the same modules.
+
+After destroy/apply inctances ip could be different and we can't login through SSH because we have an ssh-key in ~/.ssh/known_hosts file from the old deleted instance with the same ip. So, to prevent it we need to delete ssh-key manually from `known_hosts` or by
+```
+ssh-keygen -R <ip_address>
+```
+We can add this command to the `local-exec `provisioner like that:
+
+```
+  provisioner "local-exec" {
+    when = "destroy"
+    command= "ssh-keygen -R ${self.network_interface[0].access_config[0].nat_ip}"
+  }
+```
