@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "terraform_version": "0.12.9",
+  "terraform_version": "0.12.8",
   "serial": 1,
   "lineage": "e6f761fd-d694-a834-f881-6d6cdc52ab93",
   "outputs": {
