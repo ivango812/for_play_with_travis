@@ -43,7 +43,7 @@ inventory_dict = {
 # args = parser.parse_args()
 
 # получаем выходные переменные через terraform output
-tf_path = BASE_DIR + "/../terraform/stage"
+tf_path = BASE_DIR + "/../terraform"
 command = 'cd ' + tf_path + ' && terraform output -state=./terraform.tfstate.test_for_ansible'
 result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
 
