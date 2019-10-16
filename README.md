@@ -284,3 +284,86 @@ We can add this command to the `local-exec `provisioner like that:
     command= "ssh-keygen -R ${self.network_interface[0].access_config[0].nat_ip}"
   }
 ```
+
+# Lesson 10
+
+Learning Ansible
+
+Requirements: Python >=2.7
+
+Install Ansible `pip install ansible>=2.4` or `pip install -r requirements.txt`
+
+**Inventory**
+
+Created `invetory` file
+
+Up instances `app` and `db` from the previous lesson *Terraform*
+
+Playing with ansible modules - option ` -m <module>`
+
+Create `ansible.cfg` and clear up `invetory` all default settings
+
+Add groups to the `inventory`: `[app]` and `db`
+
+Dublicate `invenory` into `inventory.yml` and check it
+
+Playing with `shell`, `command`, `service` modules
+
+Conclusion - use more specific modules pather then common: 
+`service` instead of `command -a 'systemctl ...`
+`git` instead of `command -a 'git ...`
+`file` instead `command -a 'rm -rf ~/reddit'` - doesn't show the state correctly
+etc.
+
+`ansible app -m ` missed for short.
+
+Also - more specific module works properly when you run the command again
+
+**Playbook**
+
+`ansible-playbook clone.yml`
+
+Playbook runs git clone command (use module `git`)
+
+**inventory.json and Dynamic inventory**
+
+Static `inventory.json` is the direct reflection of the `inventory.yml`
+
+Dynamic `inventory.json` that produces by script (in our case by `inventory.py` (python 2.7 require) has additional section "_meta" that contains variables.
+
+Example:
+
+```
+{
+    "app": {
+        "hosts": [
+            "appserver"
+        ]
+    }, 
+    "all": {
+        "children": [
+            "app", 
+            "db"
+        ]
+    }, 
+    "db": {
+        "hosts": [
+            "dbserver"
+        ]
+    }, 
+    "_meta": {
+        "hostvars": {
+            "appserver": {
+                "ansible_host": "146.148.8.111"
+            }, 
+            "dbserver": {
+                "ansible_host": "35.187.177.167"
+            }
+        }
+    }
+}
+```
+
+`inventory.py` reads hosts ip from the `terraform output`. I created `terraform.tfstate.test_for_ansible` file in the `./terraform` directory for Travis test.
+
+I put it into `./terraform`, not into `./terraform/stage` because it has local state file configuration, `./terraform/stage` storing state at the GCP Storate bucket.
