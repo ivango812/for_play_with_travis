@@ -310,10 +310,10 @@ Dublicate `invenory` into `inventory.yml` and check it
 Playing with `shell`, `command`, `service` modules
 
 Conclusion - use more specific modules pather then common: 
-`service` instead of `command -a 'systemctl ...`
-`git` instead of `command -a 'git ...`
-`file` instead `command -a 'rm -rf ~/reddit'` - doesn't show the state correctly
-etc.
+- `service` instead of `command -a 'systemctl ...`
+- `git` instead of `command -a 'git ...`
+- `file -a 'state=absent path=~/reddit'` instead `command -a 'rm -rf ~/reddit'` - doesn't show the state correctly
+- etc.
 
 `ansible app -m ` missed for short.
 
