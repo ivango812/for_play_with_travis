@@ -24,14 +24,14 @@ resource "google_compute_instance" "db" {
   }
   provisioner "file" {
     source      = "${path.module}/files/mongod.conf"
-    destination = "/tmp/mongod.conf"
+    destination = var.enable_provisioner == true ? "/tmp/mongod.conf": "/dev/null"
   }
   provisioner "remote-exec" {
-    script = "${path.module}/files/deploy.sh"
+    script = var.enable_provisioner == true ? "${path.module}/files/deploy.sh": ""
   }
   provisioner "local-exec" {
     when = "destroy"
-    command= "ssh-keygen -R ${self.network_interface[0].access_config[0].nat_ip}"
+    command = "ssh-keygen -R ${self.network_interface[0].access_config[0].nat_ip}"
   }
 }
 

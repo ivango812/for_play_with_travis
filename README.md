@@ -140,7 +140,9 @@ Example:
 ==> googlecompute: E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?
 ```
 
-Running command:
+It's unsolved issue so far.
+
+Run command for build an image:
 `PACKER_LOG=1 packer build -var 'project_id=titanium-deck-253210' -var 'source_image=reddit-base-1569316717' packer-config.json`
 
 packer-config.json
@@ -254,9 +256,9 @@ Added provisioners for configuring and launching our applications:
 - and `mongodb` at `db` instance
 
 I used three types of provisioners:
-`file` - for copying `puma.service` and `mongod.conf` files
-`remote-exec` (inline, script) - see it bellow
-`local-exec` (by trigger `when = "destroy"`)
+- `file` - for copying `puma.service` and `mongod.conf` files
+- `remote-exec` (inline, script) - see it bellow
+- `local-exec` (by trigger `when = "destroy"`)
 
 **Mongo configuring**
 

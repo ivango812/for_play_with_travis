@@ -12,6 +12,7 @@ module "app" {
   app_disk_image   = var.app_disk_image
   env_name         = var.env_name
   database_url     = "${module.db.mongo_ip}:${module.db.mongo_port}"
+  enable_provisioner = var.enable_provisioner
 }
 
 module "db" {
@@ -21,6 +22,7 @@ module "db" {
   zone             = var.zone
   db_disk_image    = var.db_disk_image
   env_name         = var.env_name
+  enable_provisioner = var.enable_provisioner
 }
 
 module "vpc" {

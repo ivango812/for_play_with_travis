@@ -42,3 +42,8 @@ variable db_disk_image {
 variable env_name {
   description = "Environment prefix for resources names"
 }
+
+variable enable_provisioner {
+  description = "Enable disable all provisioners"
+  default     = true
+}

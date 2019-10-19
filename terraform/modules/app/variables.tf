@@ -22,3 +22,7 @@ variable env_name {
 variable database_url {
   description = "Mongo url mongodb://<local_ip>:<port>/<database>"
 }
+
+variable enable_provisioner {
+  description = "Enable disable all provisioners"
+}

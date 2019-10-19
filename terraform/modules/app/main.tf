@@ -24,19 +24,19 @@ resource "google_compute_instance" "app" {
   }
   provisioner "file" {
     source      = "${path.module}/files/puma.service"
-    destination = "/tmp/puma.service"
+    destination = var.enable_provisioner == true ? "/tmp/puma.service": "/dev/null"
   }
   provisioner "remote-exec" {
     inline = [
-      "echo export DATABASE_URL=\"${var.database_url}\" >> ~/.profile"
+      var.enable_provisioner == true ? "echo export DATABASE_URL=\"${var.database_url}\" >> ~/.profile": "echo"
     ]
   }
   provisioner "remote-exec" {
-    script = "${path.module}/files/deploy.sh"
+    script = var.enable_provisioner == true ? "${path.module}/files/deploy.sh": ""
   }
   provisioner "local-exec" {
     when = "destroy"
-    command= "ssh-keygen -R ${self.network_interface[0].access_config[0].nat_ip}"
+    command = "ssh-keygen -R ${self.network_interface[0].access_config[0].nat_ip}"
   }
 }
 

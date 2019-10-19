@@ -5,11 +5,11 @@
   "lineage": "e6f761fd-d694-a834-f881-6d6cdc52ab93",
   "outputs": {
     "app_external_ip": {
-      "value": "146.148.8.111",
+      "value": "34.77.117.151",
       "type": "string"
     },
     "db_external_ip": {
-      "value": "35.187.177.167",
+      "value": "35.205.76.199",
       "type": "string"
     }
   },
