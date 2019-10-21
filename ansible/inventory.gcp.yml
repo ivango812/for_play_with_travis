@@ -5,7 +5,6 @@ hostnames:
   - name
 compose:
   ansible_host: networkInterfaces[0].accessConfigs[0].natIP
-  # internal_ip: networkInterfaces[0].newtworkIP
 filters: 
   - name = reddit*
 groups:

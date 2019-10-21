@@ -4,7 +4,6 @@
   become: true
   vars:
     db_host: "{{ hostvars['reddit-db-stage'].networkInterfaces[0].networkIP }}"
-    # db_host: "{{ networkInterfaces[0].newtworkIP }}" #10.132.0.33
   tasks: 
     - name: Add unit file for Puma
       copy:
