@@ -1,3 +1,4 @@
 variables.json
 *.retry
 titanium*.json
+*.code-workspace

@@ -369,3 +369,66 @@ Example:
 `inventory.py` reads hosts ip from the `terraform output`. I created `terraform.tfstate.test_for_ansible` file in the `./terraform` directory for Travis test.
 
 I put it into `./terraform`, not into `./terraform/stage` because it has local state file configuration, `./terraform/stage` storing state at the GCP Storate bucket.
+
+
+# Lesson 11
+
+Up infrastructure without running provisioners:
+
+```
+$ cd terraform/stage
+$ terraform apply -var 'enable_provisioner=false' --auto-approve
+$ cd ../..
+```
+
+For `ansible --check` works - install `python-apt` first:
+```
+$ ansible -i inventory.gcp.yml all -m "apt name=python-apt state=latest" --become
+```
+
+Recreate images with packer:
+```bash
+$ packer build -var-file=packer/variables.json packer/db.json
+$ packer build -var-file=packer/variables.json packer/app.json
+```
+
+Then run:
+
+```
+cd ansible
+ansible-playbook -i inventory.gcp.yml site.yml
+```
+
+In `inventory.gcp.yml`:
+- to group hosts use `groups`
+- to filter hosts use `filters`
+- to get external ip from GCP inventory use `compose`
+
+```
+plugin: gcp_compute
+projects:
+  - titanium-deck-253210
+hostnames:
+  - name
+compose:
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+filters: 
+  - name = reddit*
+groups:
+  app: "'reddit-app' in name"  
+  db: "'reddit-db' in name"  
+auth_kind: serviceaccount
+service_account_file: titanium-deck-253210-b60e30301bcf.json
+```
+
+To add internal ip of mongodb in app playbook:
+```
+  vars:
+    db_host: "{{ hostvars['reddit-db-stage'].networkInterfaces[0].networkIP }}"
+```
+
+Destory all instances at the end:
+```
+$ cd terraform/stage
+$ terraform destroy --auto-approve
+```
