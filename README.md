@@ -432,3 +432,68 @@ Destory all instances at the end:
 $ cd terraform/stage
 $ terraform destroy --auto-approve
 ```
+
+# Lesson 12
+
+Learning roles, environments, vault, travis config
+
+* Roles *
+
+`ansible-galaxy init` - create new role skelet
+
+Playing with external community role `jdauphant.nginx`
+
+`ansible-galaxy install -r environments/stage/requirements.yml` - install role from http://galaxy.ansible.com/
+
+
+* Vault *
+
+`ansible-vault encrypt environments/prod/credentials.yml` - encrypt file
+`ansible-vault decrypt environments/prod/credentials.yml` - decrypt file
+
+* Travis *
+
+Travis CI badge for master: 
+![build status](https://travis-ci.com/Otus-DevOps-2019-08/ivango812_infra.svg?branch=master)
+
+Learning `.travis.yml` structure:
+
+`.travis.yml` sections described here: https://docs.travis-ci.com/user/job-lifecycle/
+
+I used:
+- `packer validate`
+- `terraform validate`
+- `tflint` - terraform linter
+- `ansible-playbook validate`
+- `ansible-lint` - ansible linter
+
+See [`.travis.yml`]() how to install them.
+
+I used `trytravis` to run test without commut/push to the main repository.
+
+* Install trytravis *
+
+URL format: `https://github.com/[USERNAME]/[REPOSITORY]` or `ssh://git@github.com/[USERNAME]/[REPOSITORY]
+Repository name should contain "trytravis" string (You must have `trytravis` in the name of your repository. This is a security feature to reduce chances of running git push -f on a repository you don't mean to.)
+
+Version 1.0.4 from https://github.com/sethmlarson/trytravis works with only Travis APi v.2 that was deprecated in 2018
+> The API V2 described on this page will be deprecated sometime in 2018.
+
+So, I implemented version 1.0.5 that supports Travis API v.3 and supports github repositories url support: https://github.com/ivango812/trytravis
+
+Install/update trytravis 1.0.5
+
+```
+pip install -U -e git+https://github.com/ivango812/trytravis.git#egg=trytravis
+```
+It requires `travis cli` installed and authorized for trytravis run, trytravis gets Travis token from `travis cli` config.
+
+Add new repo to trytravis
+```
+trytravis -r git@github.com/ivango812/for_play_with_trytravis.git
+```
+
+Run tratravis
+```
+trytravis
+```

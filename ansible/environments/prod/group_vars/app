@@ -1,0 +1,1 @@
+db_host: "{{ hostvars['reddit-db-stage'].networkInterfaces[0].networkIP }}"

@@ -1,0 +1,10 @@
+---
+- name: Configure MongoDB
+  hosts: db
+  become: true
+  tasks:
+    - include_role:
+        name: db
+
+  # roles:
+  #   - db
