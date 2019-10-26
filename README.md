@@ -437,7 +437,7 @@ $ terraform destroy --auto-approve
 
 Learning roles, environments, vault, travis config
 
-* Roles *
+## Roles 
 
 `ansible-galaxy init` - create new role skelet
 
@@ -445,13 +445,12 @@ Playing with external community role `jdauphant.nginx`
 
 `ansible-galaxy install -r environments/stage/requirements.yml` - install role from http://galaxy.ansible.com/
 
-
-* Vault *
+## Vault 
 
 `ansible-vault encrypt environments/prod/credentials.yml` - encrypt file
 `ansible-vault decrypt environments/prod/credentials.yml` - decrypt file
 
-* Travis *
+## Travis
 
 Travis CI badge for master: 
 ![build status](https://travis-ci.com/Otus-DevOps-2019-08/ivango812_infra.svg?branch=master)
@@ -467,7 +466,7 @@ I used:
 - `ansible-playbook validate`
 - `ansible-lint` - ansible linter
 
-See [`.travis.yml`]() how to install them.
+See [`.travis.yml`](https://github.com/Otus-DevOps-2019-08/ivango812_infra/blob/ansible-3/.travis.yml) how to install them.
 
 When I run `ansible-playbook validate`
 I faced with a problem - how to run vault in travis, as we don't have `vault.key` inside the test environment in travis (I'm waiting an answer in the Slack).
@@ -475,7 +474,7 @@ I faced with a problem - how to run vault in travis, as we don't have `vault.key
 
 I used `trytravis` to run test without commut/push to the main repository.
 
-* Install trytravis *
+### Install trytravis
 
 URL format: `https://github.com/[USERNAME]/[REPOSITORY]` or `ssh://git@github.com/[USERNAME]/[REPOSITORY]
 Repository name should contain "trytravis" string (You must have `trytravis` in the name of your repository. This is a security feature to reduce chances of running git push -f on a repository you don't mean to.)
@@ -494,10 +493,10 @@ It requires `travis cli` installed and authorized for trytravis run, trytravis g
 
 Add new repo to trytravis
 ```
-trytravis -r git@github.com/ivango812/for_play_with_trytravis.git
+trytravis -r git@github.com:ivango812/for_play_with_trytravis.git
 ```
 
-Run tratravis
+Run trytravis
 ```
 trytravis
 ```
