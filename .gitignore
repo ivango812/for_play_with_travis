@@ -2,3 +2,8 @@ variables.json
 *.retry
 titanium*.json
 *.code-workspace
+.imported_roles
+jdauphant.nginx
+vault.key
+.vscode
+ansible/env

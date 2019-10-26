@@ -1,1 +1,4 @@
 ansible>=2.4
+google-cloud-storage
+google-auth
+passlib

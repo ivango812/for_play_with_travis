@@ -1,0 +1,14 @@
+plugin: gcp_compute
+projects:
+  - titanium-deck-253210
+hostnames:
+  - name
+compose:
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+filters: 
+  - name = reddit*
+groups:
+  app: "'reddit-app' in name"  
+  db: "'reddit-db' in name"  
+auth_kind: serviceaccount
+service_account_file: titanium-deck-253210-b60e30301bcf.json

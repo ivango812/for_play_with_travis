@@ -1,8 +1,46 @@
 dist: trusty
 sudo: required
 language: bash
+env:
+  global:
+    PACKER_VERSION: '1.4.4'
+    TERRAFORM_VERSION: '0.12.8'
 before_install:
   - curl https://raw.githubusercontent.com/express42/otus-homeworks/2019-08/run.sh | bash
+install:
+  # install ansible linter
+  - |
+    # pip install --upgrade pip
+    pip install --user ansible-lint
+    ansible-lint --version
+  # Install Hashicorp's packer
+  - |
+    curl -L -o packer.zip "https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
+    unzip -d ~/bin packer.zip
+    packer version  
+  # Install terraform
+  - |
+    curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+    unzip -d ~/bin terraform.zip
+    terraform --version
+  # Install tflint
+  - |
+    curl https://raw.githubusercontent.com/wata727/tflint/master/install_linux.sh | bash
+    tflint --version
+script:
+  - packer validate -var-file=packer/variables.json.example packer/db.json
+  - packer validate -var-file=./packer/variables.json.example ./packer/app.json
+  - cd terraform/prod && terraform get && cd ../..
+  - cd terraform/prod && terraform init -backend=false && cd ../..
+  - cd terraform/prod && terraform validate && cd ../..
+  - cd terraform/stage && terraform get && cd ../..
+  - cd terraform/stage && terraform init -backend=false && cd ../..
+  - cd terraform/stage && terraform validate && cd ../..
+  - tflint terraform/prod
+  - tflint terraform/stage
+  # Закомментровал для прохождения тестов, так как из-за отсутствия ключа для vault не проходят - жду ответа от Станислава Стурова в Slack
+  # - cd ansible && ansible-playbook playbooks/site.yml --syntax-check && cd ..
+  - ansible-lint -v ansible/playbooks/site.yml
 notifications:
   slack:
     rooms:
