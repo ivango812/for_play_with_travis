@@ -23,6 +23,9 @@
     "provisioners": [
         {
             "type": "ansible",
+            "roles_path": "{{ pwd }}/ansible/.imported_roles",
+            "ansible_env_vars": ["ANSIBLE_ROLES_PATH={{ pwd }}/ansible/.imported_roles"],
+            "galaxy_file": "{{ pwd }}/ansible/environments/stage/requirements.yml",
             "playbook_file": "ansible/playbooks/packer_db.yml"
         }
     ]

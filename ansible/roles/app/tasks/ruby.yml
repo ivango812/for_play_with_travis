@@ -1,0 +1,11 @@
+---
+- name: Install packages
+  apt:
+    name: "{{ packages }}"
+    force_apt_get: yes
+    # state: present # default
+  vars:
+    packages:
+    - ruby-full
+    - ruby-bundler
+    - build-essential

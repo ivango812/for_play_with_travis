@@ -2,3 +2,6 @@ ansible>=2.4
 google-cloud-storage
 google-auth
 passlib
+molecule>=2.6 
+testinfra>=1.10 
+python-vagrant>=0.5.15
