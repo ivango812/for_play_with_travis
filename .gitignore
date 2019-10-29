@@ -1,1 +1,4 @@
 *.pyc
+secrets.tar
+credentials.json
+google_compute_engine*
