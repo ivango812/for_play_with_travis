@@ -2,3 +2,6 @@
 secrets.tar
 credentials.json
 google_compute_engine*
+env
+.vscode
+__pycache__
