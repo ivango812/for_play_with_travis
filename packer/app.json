@@ -28,6 +28,7 @@
                 "ANSIBLE_ROLES_PATH={{ pwd }}/ansible/.imported_roles",
                 "ANSIBLE_ROLES_PATH={{ pwd }}/ansible/roles"
             ],
+            "extra_arguments": ["--tags","ruby"],
             "galaxy_file": "{{ pwd }}/ansible/environments/stage/requirements.yml",
             "playbook_file": "ansible/playbooks/packer_app.yml"
         }
