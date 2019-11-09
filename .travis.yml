@@ -3,6 +3,8 @@ sudo: required
 language: python 
   - '3.7.4'
 env:
+  matrix:
+  - GCE_CREDENTIALS_FILE="$(pwd)/credentials.json"
   global:
   - secure: AfjE2fBjF5PMwdoE4opq6hDIlLxI+ACmPkWz5HdR+q/Hl1D4ip5OIttkrdfBMwvo1xkNItBoXNlNf5y7+iQ2fgu0oxd7lgAXSIfamHrhoHSetEEmGXvKS4z7aC8PrVot9WytDJ9TMPBA7XNZiN3vPwJkI5A6bSF7IddeP5xC7LhTofrj1fMwv4DurcE3B7OJrMpPPWApQoSxVp/IR6oYJQVudHtS+/LlZKnqfXpOYpVWXJs3Ye4oZIbdFTG+nc7seQPPmxYTFO+unI+fVYXqDvQcMzF0AehLUJuAXo21UikbWd4BSQYfX2nTd1LbubmL9lQfyxVnBDMpe0OEjS51b9szkTA7+NORH+LZpKwEcfMkkjkTUMOkmO7iQBYd27KdTByqPJ+e9+7QkHU2FDPynciCVFM2mIcJ46SO3sW9ymGVlnWELq69BKBn0KkHheED1Ofh6Imsn7i8P7DNF923W9o+gwKRhwKBXBKoV9yEOe0QlmEzUnJX0QAwkVae+FGmUmEO7H5rvp6t1yuDcg77DaEvd9WPLHlRLIUQvewP6SY4LT42kKBgQCb/qUVB0fCIuWlTfKhTX49AjLDKSXzpvjn6jTFy6wmK9hrsWIhKnv4wmfwFaHLl3EnFXWZYuCvzn79CCVnr6ZsR2nY+90IBVVsj4tWW8i9jdu5zTsJoqbU=
   - secure: RdcVQbtN8LWUPD49s/PDVLxlzkGWPkM0a/mT2OIdXYSxn7CtygzmIf8TDLqIMaGVsgpWZspEFqEdiR9RhWAwcEPNSpn4SUAXsxcolRv+jsCYFHLZ4rNeE8S3IfjiCNHRwRvXs9lxLz1lETzqEX9NAnWK804/H5ieC9nuZygdIw8vdH2PRxMs6e5Aq/XSX0YomNtOT3vNtMX3hjFg0ofQfezHhYT6kcIOKdwIOkUJ5gL+nuBHM0ftE0mNLU7N71XkzcjnETLcyj7j5R7obK6a1TPrKm3B+Qqq/3wB4l3JpYdg+ntVpdv3rL45NzyDb6+jWzOE/rJiP6GoOU5zyfKMSUEOFez7bhl97aG4ZLY3jfGl7F2ZlmgO/gROEYnZMhXTMRzGqLcOnvP+ZpDHNO/J+8e7HHFfVEfjVCpCVHlhSY/bw/dkJFmaZ6WozUyR1WHsbq7RvcaVu1jPindRHZgXfRYiABn3VdEeLEz5JYfks/uWRyHzFWMZZY+UQ3qIZzLkOmL2cTOGdF2i/UR2ct+EtAFIncwIp0ytkqEcULKNUtff7Fd+6lcffdLUGbdUiVrKe5a5r7rzWOteeanNZKw451ZHhpKyX7dwNs7LX1/0x4RXQi15kGkrkTqbvI4iPEiWxNnnGT5kLYK8tlG+2Lgo7uUhOG/PiD1acwUFovRSMBw=
@@ -17,7 +19,7 @@ before_install:
 install:
 - |
   # pip install ansible, molecule & apache-libcloud
-  pip install --user ansible==2.8.6 molecule apache-libcloud
+  pip install --user ansible==2.8.6 molecule[gce] apache-libcloud
 script:
 - molecule --debug test
 after_script:
