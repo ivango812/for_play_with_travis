@@ -5,6 +5,3 @@
   tasks:
     - include_role:
         name: db
-
-  # roles:
-  #   - db

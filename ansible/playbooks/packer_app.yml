@@ -5,5 +5,3 @@
   tasks: 
     - include_role:
         name: app
-    # - include_role:
-    #     name: jdauphant.nginx
